@@ -1,11 +1,9 @@
 <?php
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\DriverController;
 use App\Http\Controllers\ForwarderController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -59,7 +57,11 @@ Route::middleware(['can:isForwarder'])->group(function (){
       Route::get('/spedycja/',[ForwarderController::class,'index'])->name('forwarder.index');
       Route::get('/spedycja/active',[ForwarderController::class,'active'])->name('forwarder.active');
       Route::get('/spedycja/history',[ForwarderController::class,'history'])->name('forwarder.history');
-Route::get('/spedycja/przydziel/{id}',[ForwarderController::class, 'assign'])->name('forwarder.assign');
+      Route::get('/spedycja/przydziel/{id}',[ForwarderController::class, 'assign'])->name('forwarder.assign');
+     Route::post('/spedycja/activation/{id}', [ForwarderController::class, 'activation'])->name('forwarder.activation');
+    Route::post('/spedycja/activation-driver/{id}/', [ForwarderController::class, 'activeOrdersDriver'])->name('activeOrdersDriver');
+
+
 });
     //dla kierowcow
 

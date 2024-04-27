@@ -10,6 +10,12 @@
 
 
     <div class="container text-white">
+
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
         <h1 class="text-center">Zamówienia Wystawione</h1>
         <div class="table-responsive">
             {{ $orders->links() }}
@@ -48,8 +54,12 @@
 
                         <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ $order->role }} </td>
 
-                        <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">+ </td>
-
+                        <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">
+                            <form action="{{ route('forwarder.activation', ['id' => $order->id]) }}" method="POST">
+                                @csrf
+                                <button type="submit">Activate Order</button>
+                            </form>
+                        </td>
                         @endforeach
                     </tr>
                     </tbody>

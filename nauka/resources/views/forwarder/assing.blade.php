@@ -7,13 +7,15 @@
         @include('forwarder.nav.sidebarForwarder')
     </x-slot>
     <div>
-      {{dd($assing->id)}}
+        <form action="{{ route('activeOrdersDriver', ['id' => $myOrder->id]) }}" method="POST">
+            @csrf
+            <input type="hidden" name="order_id" value="{{ $myOrder->id }}">
+            <select name="driver_id" class="form-control">
+                @foreach ($drivers as $driver)
+                    <option value="{{ $driver->id }}">{{ $driver->name }}</option>
+                @endforeach
+            </select>
+            <button type="submit" class="btn btn-primary mt-3">Wybierz kierowcę</button>
+        </form>
     </div>
 </x-app-layout>
-
-
-
-
-
-
-
