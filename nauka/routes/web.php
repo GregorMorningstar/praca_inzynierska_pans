@@ -60,7 +60,7 @@ Route::middleware(['can:isForwarder'])->group(function (){
       Route::get('/spedycja/przydziel/{id}',[ForwarderController::class, 'assign'])->name('forwarder.assign');
      Route::post('/spedycja/activation/{id}', [ForwarderController::class, 'activation'])->name('forwarder.activation');
     Route::post('/spedycja/activation-driver/{id}/', [ForwarderController::class, 'activeOrdersDriver'])->name('activeOrdersDriver');
-
+Route::get('/spedycja/allocated',[ForwarderController::class,'allocated'])->name('forwarder.allocated');
 
 });
     //dla kierowcow

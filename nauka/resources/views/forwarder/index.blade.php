@@ -57,7 +57,7 @@
                         <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">
                             <form action="{{ route('forwarder.activation', ['id' => $order->id]) }}" method="POST">
                                 @csrf
-                                <button type="submit">Activate Order</button>
+                                <button type="submit" class="bg-green-500 text-white font-bold px-4 py-2 rounded-md">Przyjmij zlecenie</button>
                             </form>
                         </td>
                         @endforeach

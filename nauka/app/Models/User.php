@@ -13,6 +13,11 @@ use Laravel\Sanctum\HasApiTokens;
  */
 class User extends Authenticatable
 {
+
+    public function order()
+    {
+        return $this->belongsToMany(Orders::class, 'order_users');
+    }
     public function orders()
     {
         return $this->hasMany(Orders::class);
@@ -51,5 +56,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    public function ordersThroughPivot()
+    {
+        return $this->belongsToMany(Order::class, 'order_users');
+    }
+
 
 }

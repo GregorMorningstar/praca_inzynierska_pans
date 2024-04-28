@@ -10,6 +10,9 @@
             <x-nav-link :href="route('forwarder.history')" :active="request()->routeIs('forwarder.history')" class="ml-4">
                 {{ __('Historia Zlecen') }}
             </x-nav-link>
+            <x-nav-link :href="route('forwarder.allocated')" :active="request()->routeIs('forwarder.allocated')" class="ml-4">
+                {{ __('Kierowcy z zleceniami') }}
+            </x-nav-link>
 
         </div>
     </div>

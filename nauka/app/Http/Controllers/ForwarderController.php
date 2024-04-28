@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\enum\OrderStatus;
 use App\enum\UserRoles;
+use App\Models\order_user;
 use App\Models\Orders;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -44,12 +45,7 @@ class ForwarderController extends Controller
         return view('forwarder.active', ['orders' => $orders]);
     }
 
-    public function detailsOrder(Request $request, $id)
-    {
-        // Zabezpieczenie przed wyświetlaniem zleceń już pobranych
-        $orderDriver = Orders::where('role', OrderStatus::PENDING)->findOrFail($id);
-        return view('forwarder.details-order', ['myOrder' => $orderDriver]);
-    }
+
 
     public function assign($id)
     {
@@ -67,7 +63,18 @@ class ForwarderController extends Controller
         $order_id = $request->input('order_id');
         //id kierowcy z inputa
         $driver_id = $request->input('driver_id');
-     dd('zamowienie: '.$order_id,'kierowca '.$driver_id);
+
+        $orderDriver = new order_user();
+        $orderDriver->order_id = $order_id;
+        $orderDriver->user_id = $driver_id;
+        $orderDriver->save();
+        $orderAllocated = Orders::findOrFail($order_id);
+        $orderAllocated->role = \App\enum\OrderStatus::AlLOCATED;
+        $orderAllocated->update();
+
+        return redirect()->route('forwarder.active')->with('success', 'Rola użytkownika została zaktualizowana pomyślnie!');
+
+        //dd('zamowienie: '.$order_id,'kierowca '.$driver_id);
     }
 
     // Aktywacja zlecenia przez spedytora
@@ -83,9 +90,11 @@ class ForwarderController extends Controller
         return redirect()->route('forwarder.active', $activation->id)->with('success', 'Rola użytkownika została zaktualizowana pomyślnie!');
     }
 
-    public function update(Request $request, string $id)
+    public function allocated()
     {
-        //
+        $allocated = order_user::whereNull('odjazd')->with('order', 'user')->paginate(10);
+
+        return view('forwarder.allocated', ['allocated' => $allocated]);
     }
 
     public function destroy(string $id)

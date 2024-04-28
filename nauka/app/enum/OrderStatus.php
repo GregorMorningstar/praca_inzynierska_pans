@@ -6,6 +6,8 @@ enum OrderStatus
 {
     const PENDING = 'Wystaiowne';
     const DELIVERED = 'Przyjęte';
+    const AlLOCATED = 'Przydzielone';
+
     const DONE = 'Wykonane';
     const CANCELLED = 'Wycofane';
 
@@ -13,6 +15,7 @@ enum OrderStatus
         self::PENDING,
         self::DELIVERED,
         self::DONE,
+        self::AlLOCATED,
         self::CANCELLED,
     ];
 
