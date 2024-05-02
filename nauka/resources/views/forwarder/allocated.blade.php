@@ -6,20 +6,66 @@
 
         @include('forwarder.nav.sidebarForwarder')
     </x-slot>
-    <div class="text-white">
+    <div>
+{{$allocated->links()}}
+        <table class="min-w-full leading-normal">
+            <thead>
+            <tr>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    Numer zlecenia
+                </th>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    Miejsce załadunku
+                </th>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    Miejsce docelowe
+                </th>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    Status załadunku
+                </th>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    Status rozładunku
+                </th>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    Kierowca
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($allocated as $allocation)
+                <tr>
+                    <td class="px-5 py-2 border-b border-gray-200 bg-white text-sm">
+                        {{ $allocation->order->id }}
+                    </td>
+                    <td class="px-5 py-2 border-b border-gray-200 bg-white text-sm">
+                        {{ $allocation->order->miejsce_zaladunku }}
+                    </td>
+                    <td class="px-5 py-2 border-b border-gray-200 bg-white text-sm">
+                        {{ $allocation->order->miejsce_docelowe }}
+                    </td>
+                    <td class="px-5 py-2 border-b border-gray-200 bg-white text-sm">
+                        @if($allocation->przyjazd_dostawa)
+                            <span class="text-blue-800 font-extrabold">Kierowca przybył na miejsce załadunku o {{ $allocation->przyjazd_dostawa }}</span>
+                        @else
+                            <span class="text-red-500">Kierowca jeszcze nie przyjechał na miejsce</span>
+                        @endif
+                    </td>
+                    <td class="px-5 py-2 border-b border-gray-200 bg-white text-sm">
+                        @if($allocation->przyjazd_dostawa)
+                            <span class="text-blue-700 font-extrabold">Kierowca przybył na miejsce dostawy o {{ $allocation->przyjazd_dostawa }}</span>
+                        @else
+                            <span class="text-red-500">Kierowca jeszcze nie przyjechał na miejsce</span>
+                        @endif
+                    </td>
+                    <td class="px-5 py-2 border-b border-gray-200 bg-white text-sm">
+                        {{ $allocation->user->name }}
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
 
-<h1>Tutaj beda tylko kierowcy z przydzielonymi trasami</h1>
-        @foreach($allocated as $allocation)
-            <div>
-                <p><strong>Numer zlecenia:</strong> {{ $allocation->order->id }}</p>
-                <p><strong>Miejsce załadunku:</strong> {{ $allocation->order->miejsce_zaladunku }}</p>
-                <p><strong>Miejsce docelowe:</strong> {{ $allocation->order->miejsce_docelowe }}</p>
-                @if($allocation->przyjazd)<p><strong class="text-red-700">Kierowca przybyl na miejsce o {{ $allocation->przyjazd }}</strong> </p>
-                @else<h1>kierowca jeszce nie przyjechal na miejsce</h1>@endif
-                <p><strong>Kierowca:</strong> {{ $allocation->user->name }}</p>
-                <hr>
-            </div>
-        @endforeach
+        {{$allocated->links()}}
 
     </div>
 </x-app-layout>

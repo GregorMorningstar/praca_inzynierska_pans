@@ -92,7 +92,9 @@ class ForwarderController extends Controller
 
     public function allocated()
     {
-        $allocated = order_user::whereNull('odjazd')->with('order', 'user')->paginate(10);
+        $allocated = order_user::whereNull('odjazd_dostawa')->with('order', 'user')->paginate(5);
+
+
 
         return view('forwarder.allocated', ['allocated' => $allocated]);
     }

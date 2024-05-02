@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('user_id');
-            $table->string('przyjazd')->nullable();
-            $table->string('odjazd')->nullable();
+            $table->string('przyjazd_zaladunek')->nullable();
+            $table->string('odjazd_zaladunek')->nullable();
+            $table->string('przyjazd_dostawa')->nullable();
+            $table->string('odjazd_dostawa')->nullable();
 
 
             $table->foreign('order_id')->references('id')->on('orders');

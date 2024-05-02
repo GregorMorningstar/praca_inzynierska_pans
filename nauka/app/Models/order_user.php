@@ -12,8 +12,10 @@ class order_user extends Model
     protected $fillable = [
         'order_id',
         'user_id',
-        'przyjazd',
-        'odjazd'
+        'przyjazd_zaladunek',
+        'odjazd_zaladunek',
+        'przyjazd_dostawa',
+        'odjazd_dostawa'
     ];
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

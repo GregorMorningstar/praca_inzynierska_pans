@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DriverController;
 use App\Http\Controllers\ForwarderController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProfileController;
@@ -35,9 +36,9 @@ Route::middleware(['auth', 'verified'])->group(function (){
 
     //route dla admina
    Route::middleware(['can:isAdmin'])->group(function () {
-      Route::get('/admin/adminDashboard',[AdminController::class, 'index'])->name('adminDashboard');
-      Route::get('/admin/show-user',[AdminController::class, 'show'])->name('showUsers');
-      Route::get('/admin/show-user/{id}',[AdminController::class, 'showDetails'])->name('showDetails');
+       Route::get('/admin/adminDashboard',[AdminController::class, 'index'])->name('adminDashboard');
+       Route::get('/admin/show-user',[AdminController::class, 'show'])->name('showUsers');
+       Route::get('/admin/show-user/{id}',[AdminController::class, 'showDetails'])->name('showDetails');
        Route::put('/admin/user-list/{id}', [AdminController::class, 'updateRole'])->name('updateUserRole'); // Dodana ścieżka dla aktualizacji roli użytkownika
        Route::delete('/admin/show-user/{id}', [AdminController::class, 'destroy'])->name('deleteUser');
 
@@ -58,13 +59,22 @@ Route::middleware(['can:isForwarder'])->group(function (){
       Route::get('/spedycja/active',[ForwarderController::class,'active'])->name('forwarder.active');
       Route::get('/spedycja/history',[ForwarderController::class,'history'])->name('forwarder.history');
       Route::get('/spedycja/przydziel/{id}',[ForwarderController::class, 'assign'])->name('forwarder.assign');
-     Route::post('/spedycja/activation/{id}', [ForwarderController::class, 'activation'])->name('forwarder.activation');
-    Route::post('/spedycja/activation-driver/{id}/', [ForwarderController::class, 'activeOrdersDriver'])->name('activeOrdersDriver');
-Route::get('/spedycja/allocated',[ForwarderController::class,'allocated'])->name('forwarder.allocated');
+      Route::post('/spedycja/activation/{id}', [ForwarderController::class, 'activation'])->name('forwarder.activation');
+      Route::post('/spedycja/activation-driver/{id}/', [ForwarderController::class, 'activeOrdersDriver'])->name('activeOrdersDriver');
+      Route::get('/spedycja/allocated',[ForwarderController::class,'allocated'])->name('forwarder.allocated');
 
 });
     //dla kierowcow
 
+
+    Route::middleware(['can:isDriver'])->group(function () {
+
+        Route::get('/driver', [DriverController::class, 'index'])->name('driver.index');
+        Route::get('/driver/history', [DriverController::class, 'history'])->name('driver.history');
+        Route::get('/driver/details', [DriverController::class, 'details'])->name('driver.details');
+        Route::get('/driver/details/{id}', [DriverController::class, 'details_one'])->name('driver.details_one');
+
+    });
 
 
 });

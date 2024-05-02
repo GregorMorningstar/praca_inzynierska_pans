@@ -14,6 +14,9 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            backgroundImage: {
+                'start_logo': "url('.../resources/img/start.logo.jpg')"  // Change the path to your image
+            }
         },
     },
 
