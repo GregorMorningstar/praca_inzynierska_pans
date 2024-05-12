@@ -4,6 +4,9 @@
             <x-nav-link :href="route('driver.index')" :active="request()->routeIs('driver.index')" class="ml-4">
                 {{ __('Lista zlecen') }}
             </x-nav-link>
+            <x-nav-link :href="route('driver.history')" :active="request()->routeIs('driver.history')" class="ml-4">
+                {{ __('Historia zlecen') }}
+            </x-nav-link>
 
         </div>
     </div>

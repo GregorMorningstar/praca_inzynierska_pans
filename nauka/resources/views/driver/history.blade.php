@@ -6,7 +6,13 @@
 
         @include('driver.nav.sidebarDriver')
     </x-slot>
-
+    <div class="text-center">
+        @if(session()->has('success'))
+            <p id="error-message" class="alert alert-danger text-red-700 bg-pink-200 rounded-lg py-2 px-4 inline-block">
+                {{ session('success') }}
+            </p>
+        @endif
+    </div>
     <div>
         <h1>tutaj będą aktywne zlecenia dla użytkownika</h1>
 
@@ -29,7 +35,7 @@
                     Data Dostawy
                 </th>
                 <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    Data dostawy
+                    Rzeczywista data dostawy
                 </th>
 
             </tr>
@@ -64,3 +70,13 @@
 
     </div>
 </x-app-layout>
+
+<script>
+    setTimeout(function() {
+        document.getElementById('error-message').style.display = 'none';
+    }, 5000); // 5000 milisekund = 5 sekund
+    setTimeout(function() {
+        document.getElementById('success').style.display = 'none';
+    }, 5000); // 5000 milisekund = 5 sekund
+
+</script>
